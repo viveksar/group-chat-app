@@ -97,10 +97,11 @@ let userschema=new mongoose.Schema({
 
 
 
+
     //to provide the authentication token
     userschema.methods.getauthtoken=async function(){
         let user=this
-        let token=jwt.sign({_id:user._id},JWT_SECRET)
+        let token=jwt.sign({_id:user._id},process.env)
 
         //to add this token to the tokens array in the model
         user.tokens=user.tokens.concat({
@@ -110,6 +111,7 @@ let userschema=new mongoose.Schema({
      return token
     }
 
+ 
 
     //to find any user by giving its credentials
    userschema.statics.findByCredentials=async (email,password)=>{
